@@ -1,0 +1,11 @@
+# Включаем модуль mod_rewrite
+RewriteEngine On
+
+# Если запрос идет к существующему файлу или каталогу, не обрабатываем его
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Перенаправляем запросы /veteran/123 на veteran.php?id=123
+RewriteRule ^veteran/([0-9]+)$ veteran.php?id=$1 [L]
+RewriteRule ^veteran/$ veteran.php [L]
