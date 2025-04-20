@@ -1,14 +1,8 @@
 <?php
+require __DIR__ . '/kandinsky.php';
+use neiro\imageGen;
 /** Серверная часть страницы, обработка запроса */
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
-
-
-
-
-
-
-
-
     
     require_once 'db.php';
     
@@ -28,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     
         if (move_uploaded_file($image["tmp_name"], $targetFile)) {
-            return ['status' => 'success', 'path' => $targetFile];
+            return ['status' => 'success', 'path' => "/img/upload/" . basename($image["name"])];
         } else {
             return ['status' => 'error', 'message' => 'Ошибка при загрузке изображения.'];
         }
@@ -72,34 +66,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     
     // Функция для генерации изображения
     function generateImage($prompt): array {
-        $apiKey = '510C197089AEB9806D57C58493AD3E7B'; //Заменить
-    
-        $headers = [
-            'Authorization: Bearer ' . $apiKey,
-            'Content-Type: application/json',
-        ];
-    
-        $data = ['prompt' => $prompt];
-    
-        $response = httpRequest('https://api.kandinsky.one/generate', 'POST', $headers, $data);
-    
-        if ($response['body'] === false) {
-            return ['status' => 'error', 'message' => 'Ошибка при генерации изображения.'];
-        }
-    
-        $data = json_decode($response['body'], true);
-    
-        if (isset($data['image'])) {
-            $image = base64_decode($data['image']);
-            $file = '/img/generated/' . uniqid() . '.png';
-    
-            if (file_put_contents($file, $image) !== false) {
-                return ['status' => 'success', 'path' => $file];
-            } else {
-                return ['status' => 'error', 'message' => 'Не удалось сохранить изображение.'];
-            }
-        } else {
-            return ['status' => 'error', 'message' => 'Ошибка при генерации изображения.'];
+        if($kd = imageGen::getInstance()){
+            return ['status' => 'success', 'path' => $kd::question($prompt)];
         }
     }
     
@@ -135,6 +103,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         $death_year = isset($_POST['death_year']) ? intval($_POST['death_year']) : null;
         $desc = isset($_POST['desc']) ? trim($_POST['desc']) : "";
         $biography = isset($_POST['biography']) ? trim($_POST['biography']) : "";
+        $generate_image = (isset($_POST['generate_image']) AND $_POST['generate_image']=='true') ? 1 : 0;
+        $image_prompt = isset($_POST['image_prompt']) ? trim($_POST['image_prompt']) : "";
     
         // Обрабатываем изображение
         $imagePath = null;
@@ -146,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 // echo json_encode(['status' => 'error', 'message' => $uploadResult['message']]);
                 // exit;
             }
-        } elseif (isset($_POST['generate_image']) && !empty($_POST['image_prompt'])) {
+        } elseif (isset($_POST['generate_image']) && (bool)$_POST['generate_image'] && !empty($_POST['image_prompt'])) {
             $generateResult = generateImage($_POST['image_prompt']);
             if ($generateResult['status'] === 'success') {
                 $imagePath = $generateResult['path'];
@@ -181,17 +151,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
         /**Добавление ветерана */
         $res = addVeteran($conn, $name, $birth_year, $death_year, $desc, $biography);
-    
-        // $sql = "INSERT INTO veteran_images (veteran_id, image_url) VALUES (:veteran_id, :image_url)";
-        // try {
-        //     $stmt = $conn->prepare($sql);
-        //     $stmt->bindParam(':veteran_id', 0, PDO::PARAM_STR);
-        //     $stmt->bindParam(':image_url', $imagePath, PDO::PARAM_STR);
-        //     $stmt->execute();
-        // } catch (PDOException $e) {        }
+        $new_veteran_id = $conn->lastInsertId();
+        $sql = "INSERT INTO veteran_images (veteran_id, image_url) VALUES (:veteran_id, :image_url)";
+        try {
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':veteran_id', $new_veteran_id, PDO::PARAM_STR);
+            $stmt->bindParam(':image_url', $imagePath, PDO::PARAM_STR);
+            $stmt->execute();
+        } catch (PDOException $e) {        }
 
         if (!$res) echo json_encode(['status' => 'error', 'message' => 'Ошибка добавления ветерана: ' . $e->getMessage()]);
-        else echo json_encode(['status' => 'success', 'message' => 'Ветеран успешно добавлен! Страница будет опубликована после обработки администратором!']);
+        else echo json_encode(['status' => 'success', 'message' => 'Ветеран успешно добавлен! Страница будет опубликована после обработки администратором! Предпросмотр страницы доступен по ссылке', 'path' => '/veteran/'.$new_veteran_id]);
     
         $conn = null;
     } else {
@@ -344,6 +314,11 @@ include_once('header.php');
             formData.append('death_year', document.getElementById('death_year').value);
             formData.append('desc', document.getElementById('desc').value);
             formData.append('biography', document.getElementById('biography').value);
+            formData.append('generate_image', document.getElementById('generate_image').checked);
+            formData.append('image_prompt', document.getElementById('image_prompt').value);
+            formData.append('image', document.getElementById('image').files[0]);
+
+            
 
             fetch(window.location.href, {
                 method: 'POST',

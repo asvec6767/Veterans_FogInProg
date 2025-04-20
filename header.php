@@ -21,40 +21,67 @@
         <title><?=isset($title)?$title:'Страницы памяти'?></title>
     </head>
     <body>
-        <header class="header">
-            <div class="header-wrapper">
-                <div class="header__logo">
-                    <a href="/" class="header__logo-link">
-                        <img class="header__logo-img" src="/img/logo_header.jpg" alt="logo">
-                    </a>
-                </div>
-                <nav class="nav">
-                    <ul class="nav__list">
-                        <li style="transform: translateX(20px);">
-                            <h3 class="nav__list-item-link">Страницы памяти.РФ</h1>
-                        </li>
-                        <li class="nav__list-item">
-                            <a href="/veteran/" class="nav__list-item-link">Стена памяти</a>
-                        </li>
-                        <li class="nav__list-item">
-                            <a href="/add_veteran.php" class="nav__list-item-link">Добавить историю</a>
-                        </li>
-                        <li class="nav__list-item">
-                            <a href="#" class="nav__list-item-link">Карта памяти</a>
-                        </li>
-                        <li class="nav__list-item">
-                            <div class="btn-group">
-                                  <button type="button" class="btn btn-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Дополнительно
-                                  </button>
-                                  <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">В разработке</a></li>
-                                    <li><a class="dropdown-item" href="#">В разработке</a></li>
-                                    <li><a class="dropdown-item" href="#">В разработке</a></li>
-                                  </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </nav>
+    <header class="header">
+        <div class="header-wrapper">
+            <div class="header__logo">
+                <a href="/" class="header__logo-link">
+                    <img class="header__logo-img" src="/img/logo_header.jpg" alt="logo">
+                </a>
             </div>
-        </header>
+            <button class="burger-btn" id="burgerBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="nav" id="mainNav">
+                <ul class="nav__list">
+                    <li class="nav__list-item nav__list-title">
+                        <h3>Страницы памяти.РФ</h3>
+                    </li>
+                    <li class="nav__list-item">
+                        <a href="/veteran/" class="nav__list-item-link">Стена памяти</a>
+                    </li>
+                    <li class="nav__list-item">
+                        <a href="/add_veteran.php" class="nav__list-item-link">Добавить историю</a>
+                    </li>
+                    <li class="nav__list-item">
+                        <a href="#" class="nav__list-item-link">Карта памяти</a>
+                    </li>
+                    <li class="nav__list-item">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                Дополнительно
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">В разработке</a></li>
+                                <li><a class="dropdown-item" href="#">В разработке</a></li>
+                                <li><a class="dropdown-item" href="#">В разработке</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const burgerBtn = document.getElementById('burgerBtn');
+                const mainNav = document.getElementById('mainNav');
+                
+                burgerBtn.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    mainNav.classList.toggle('active');
+                    document.body.classList.toggle('no-scroll');
+                });
+                
+                const navLinks = document.querySelectorAll('.nav__list-item-link');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        burgerBtn.classList.remove('active');
+                        mainNav.classList.remove('active');
+                        document.body.classList.remove('no-scroll');
+                    });
+                });
+            });
+        </script>

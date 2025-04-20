@@ -16,7 +16,7 @@ usort($veterans, function($a, $b) {
 <!-- <script src="/js/veteran_script.js"></script> -->
 
 <? /**Страница списка всех Ветеранов */?>
-    <main class="">
+    <main class="person-main">
         <div id="searchComponent">
         <section class="search-section">
             <div class="search-container">
@@ -42,7 +42,7 @@ usort($veterans, function($a, $b) {
                         </span>
                     </div>
 
-                    <div class="input-group">
+                    <!-- <div class="input-group">
                         <label for="year-search">Год рождения</label>
                         <input 
                             type="text" 
@@ -76,10 +76,10 @@ usort($veterans, function($a, $b) {
                                 <circle cx="12" cy="10" r="3"></circle>
                             </svg>
                         </span>
-                    </div>
+                    </div> -->
 
                     <div class="btn-search">
-                        <button class="btn btn-primary col-12" @click="handleSearch">
+                        <button class="btn btn-primary" @click="handleSearch">
                             Найти
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <circle cx="11" cy="11" r="8"></circle>
@@ -87,7 +87,7 @@ usort($veterans, function($a, $b) {
                             </svg>
                         </button>
 
-                        <button class="btn btn-danger col-12" @click="resetSearch">
+                        <button class="btn btn-danger" @click="resetSearch">
                             Сбросить
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="18" y1="6" x2="6" y2="18"></line>

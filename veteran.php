@@ -23,15 +23,15 @@ if ($veteran_id <= 0) {
 
 $veteran = getVeteranInfo($conn, $veteran_id);
 
-if ($veteran) {
-    echo htmlspecialchars($veteran["name"]);
-} else {
-    echo "Информация о ветеране";
-}
+// if ($veteran) {
+//     echo htmlspecialchars($veteran["name"]);
+// } else {
+//     echo "Информация о ветеране";
+// }
 ?>
 
 <title>Информация о ветеране</title>
-<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=" type="text/javascript"></script>
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=d39db146-6e3d-4ef1-93aa-0ab93cfb946e" type="text/javascript"></script>
 
 <main>
     <section id="veteran-info">
@@ -68,7 +68,8 @@ if ($veteran) {
             $images = getVeteranImages($conn, $veteran_id);
             if ($images) {
                 foreach ($images as $image) {
-                    echo "<img src='/img/veteran/" . htmlspecialchars($image["image_url"]) . "' alt='Фотография'>";
+                    if (str_contains($image["image_url"],'/img/')) echo "<img src='" . htmlspecialchars($image["image_url"]) . "' alt='Фотография'>";
+                    else echo "<img src='/img/veteran/" . htmlspecialchars($image["image_url"]) . "' alt='Фотография'>";
                 }
             } else {
                 echo "Фотографии не найдены.";
@@ -118,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
             candleCount.textContent = count + 1;
             
             // Send AJAX request to update count in database
-            fetch('update_candles.php', {
+            fetch('http://'+window.location.host+'/candle.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',

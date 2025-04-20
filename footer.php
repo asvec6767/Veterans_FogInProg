@@ -65,8 +65,8 @@ function renderFooter() {
     ">
         <p>&copy; $currentYear Проект "Страницы памяти.РФ". Все права защищены.</p>
         <p style="margin-top: 10px; font-size: 0.8rem;">
-            <a href="/privacy" style="color: #e6d5b3; text-decoration: none;">Политика конфиденциальности</a> | 
-            <a href="/terms" style="color: #e6d5b3; text-decoration: none;">Условия использования</a>
+            <a href="#" style="color: #e6d5b3; text-decoration: none;">Политика конфиденциальности</a> | 
+            <a href="#" style="color: #e6d5b3; text-decoration: none;">Условия использования</a>
         </p>
     </div>
 </footer>

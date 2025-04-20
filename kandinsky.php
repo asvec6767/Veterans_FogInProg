@@ -2,8 +2,8 @@
 namespace neiro;
 
 class ImageGen {
-    protected const API_KEY = "";
-    protected const SECRET_KEY = "";
+    protected const API_KEY = "510C197089AEB9806D57C58493AD3E7B";
+    protected const SECRET_KEY = "14CFC3D241A842594FE077A9FA405C5E";
     protected static $instance;
 
     public static function getInstance() {

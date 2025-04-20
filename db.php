@@ -3,9 +3,9 @@
 
 // Настройки подключения к БД
 $servername = "localhost";
-$username = "";
-$password = "";
-$dbname = "";
+$username = "f1116969_user";
+$password = "pass123@";
+$dbname = "f1116969_user";
 
 // Функция для подключения к БД
 function connectDB() {
