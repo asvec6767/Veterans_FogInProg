@@ -1,0 +1,546 @@
+body{
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    background-color: #C72727; 
+    
+}
+
+.header-wrapper {
+    max-width: 1440px;
+    padding: 20px;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+}
+
+.header__logo-img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.nav__list {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    color: white;
+    font-size: 20px;
+}
+
+.nav__list-item{
+    padding: 10px 20px !important;
+    transition: all 0.5s ease;
+}
+
+.nav__list-item:hover{
+    background: #e92e2e;
+    border-radius: 30px;
+}
+
+.nav__list-item .btn {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.nav__list-item .btn:focus {
+    box-shadow: none;
+}
+
+.nav__list-item-link{
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+a:hover {
+    color: inherit !important;
+    background-color: transparent !important;
+    text-decoration: none !important;
+}
+
+.nav__list-item .btn-link {
+    color: inherit !important;
+    background-color: transparent !important;
+    text-decoration: none !important;
+}
+
+
+/* ТЕСТ */
+
+.title {
+    margin-bottom: 30px;
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.search-section {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+    padding: 1rem 0;
+}
+
+.search-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-form {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-end;
+}
+
+.input-group {
+    position: relative;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #4a5568;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #4299e1;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+}
+
+.input-icon {
+    position: absolute;
+    left: 1rem;
+    bottom: 0.75rem;
+    color: #a0aec0;
+}
+
+.memory-section {
+    max-width: 1200px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+}
+
+.memory-form {
+    margin-top: 1.5rem;
+}
+
+.memory-textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    resize: vertical;
+    transition: all 0.3s ease;
+}
+
+.memory-textarea:focus {
+    outline: none;
+    border-color: #4299e1;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+}
+
+.memory-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.memory-button {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    background-color: white;
+    border: 1px solid #e2e8f0;
+    color: #4a5568;
+}
+
+.memory-button.primary {
+    background-color: #4299e1;
+    color: white;
+    border: none;
+}
+
+.memory-button:hover {
+    background-color: #f7fafc;
+}
+
+.memory-button.primary:hover {
+    background-color: #3182ce;
+}
+
+.memories-list {
+    margin-top: 2rem;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 1rem;
+}
+
+.memory-item {
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.memory-author {
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 0.5rem;
+}
+
+.memory-text {
+    color: #4a5568;
+    line-height: 1.6;
+}
+
+.memory-date {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: #718096;
+    text-align: right;
+}
+
+
+.not-person {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    font-size: 2rem;
+    color: #6c757d;
+}
+
+/* СВЕЧА */  
+
+
+/* СЛАЙДЕР */
+ 
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+}
+/* Стили для полноэкранного слайдера */
+.fullscreen-slider {
+    position: relative;
+    /* width: 100vw; */
+    height: 30%;
+    overflow: hidden;
+  }
+  
+  .swiper {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .img-photo rounded-3 {
+    height: 240px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+  
+  /* Анимация перехода */
+  .swiper-slide {
+    transition: opacity 5s ease-in-out;
+    height: 240px; /* Фиксированная высота слайда */
+    width: auto; /* Или конкретное значение для ширины */
+  }
+  
+  /* Навигация */
+  /* .swiper-pagination {
+    position: absolute;
+    bottom: 30px !important;
+  }
+  
+  .swiper-pagination-bullet {
+    background: white;
+    opacity: 0.6;
+    width: 12px;
+    height: 12px;
+    margin: 0 8px !important;
+  }
+  
+  .swiper-pagination-bullet-active {
+    background: #d4af37;
+    opacity: 1;
+  }
+  
+  .swiper-button-prev,
+  .swiper-button-next {
+    color: white !important;
+     background: rgba(0,0,0,0.3); 
+    width: 50px;
+    height: 50px;
+    border-radius: 10%;
+    transition: all 0.3s ease;
+  }
+   */
+  .swiper-button-prev:hover,
+  .swiper-button-next:hover {
+    background: rgba(0,0,0,0.6);
+  }
+  
+  .swiper-button-prev::after,
+  .swiper-button-next::after {
+    font-size: 24px !important;
+    font-weight: bold;
+  }
+  
+  /* Затемнение фотографий */
+  .swiper-slide::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #64625f18; 
+  }
+
+
+
+
+/*Карточки на главной*/
+/* Основной контейнер для карточек */
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 карточки в ряд */
+    gap: 8mm; /* Расстояние между карточками 8мм */
+    max-width: 1200px; /* Максимальная ширина контейнера */
+    width: 90%; /* Занимает 90% ширины экрана */
+    margin: 0 auto; /* Центрирование по горизонтали */
+    padding: 40px 20px; /* Увеличил отступы для лучшего визуального восприятия */
+    box-sizing: border-box;
+  
+    
+    /* Новые свойства для фона */
+    background: linear-gradient(
+        135deg, 
+        #ffca8066, 
+        #ecac3630 50%, 
+        rgba(219, 156, 54, 0.747) 100%
+    );
+    border-radius: 12px; /* Скругленные углы */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Тень для объема */
+    
+ 
+}
+
+
+
+.losung {
+    grid-column: 1 / -1; /* Занимает все колонки */
+    text-align: center;
+    margin-bottom: 35px;
+  }
+/* Стили для отдельных карточек */
+.card {
+    position: relative;
+    width: 100%; /* Ширина по размеру ячейки grid */
+    aspect-ratio: 1/1; /* Квадратный формат */
+    overflow: hidden; /* Обрезаем выходящие за границы элементы */
+    border-radius: 8px; /* Скругленные углы */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Тень для карточки */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Плавные анимации */
+}
+
+/* Изображения внутри карточек */
+.card-image {
+    width: 100%; /* Занимает всю ширину карточки */
+    height: 100%; /* Занимает всю высоту карточки */
+    object-fit: cover; /* Заполнение пространства с сохранением пропорций */
+    display: block; /* Убираем лишние отступы */
+    transition: transform 0.5s ease; /* Анимация увеличения */
+}
+
+/* Эффекты при наведении */
+.card:hover {
+    transform: translateY(-3px); /* Поднимаем карточку */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Усиливаем тень */
+    transition-duration: 0.8s ease;
+}
+.card-text {
+    /* Начальное состояние - скрыт */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+    
+    font-family: 'Times New Roman', serif;
+    font-style: italic;
+    letter-spacing: 0.5px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    /* border-left: 3px solid #d4af37; */
+    padding-left: 12px;
+
+    /* Стили текста */
+    color: #fff;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-align: center;
+    padding: 15px;
+    width: 100%;
+    box-sizing: border-box;
+    
+    /* Позиционирование */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    
+    /* Фон для лучшей читаемости */
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 70%, transparent 100%);
+    backdrop-filter: blur(2px);
+}
+
+.card:hover .card-text {
+    /* Состояние при наведении - появляется */
+    opacity: 1;
+    transform: translateY(0);
+    
+    /* Дополнительные эффекты */
+    transition-delay: 0.1s;
+}
+
+.card:hover .card-image {
+    transform: scale(1.05); /* Увеличиваем изображение */
+    filter: brightness(0.7) sepia(0.3);
+}
+
+
+/* COMMENT.PHP */
+
+#comments {
+    max-width: 1200px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+}
+
+#comments h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #2d3748;
+}
+
+#comment-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+}
+
+#comment-list li {
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 1rem !important;
+    margin-bottom: 2rem !important;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+
+    position: relative; 
+    padding-bottom: 2rem !important;
+}
+
+#comment-list li p:last-child {
+    color: #4a5568;
+    line-height: 1.6;
+    margin: 0.5rem 0 0 0 !important; 
+    position: absolute; 
+    bottom: 0.5rem; 
+    right: 1rem; 
+    font-size: 0.875rem; 
+}
+
+
+#comment-list li p {
+    margin: 0.5rem 0;
+    font-size: 1rem !important;
+}
+
+#comment-list li p:first-child {
+    font-weight: 600;
+    color: #2d3748;
+}
+
+#comment-list li p:last-child {
+    color: #4a5568;
+    line-height: 1.6;
+}
+
+/* Стили для формы добавления комментария */
+#add-comment {
+    max-width: 1200px;
+    margin: 0 auto 3rem auto;
+    padding: 0 1rem;
+}
+
+#add-comment h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #2d3748;
+}
+
+#comment-form {
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+#comment-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #4a5568;
+}
+
+#comment-form input,
+#comment-form textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+#comment-form textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+#comment-form input:focus,
+#comment-form textarea:focus {
+    outline: none;
+    border-color: #4299e1;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+}
