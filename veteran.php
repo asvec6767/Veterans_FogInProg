@@ -31,7 +31,7 @@ $veteran = getVeteranInfo($conn, $veteran_id);
 ?>
 
 <title>Информация о ветеране</title>
-<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=d39db146-6e3d-4ef1-93aa-0ab93cfb946e" type="text/javascript"></script>
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=" type="text/javascript"></script>
 
 <main>
     <section id="veteran-info">
