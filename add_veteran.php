@@ -73,22 +73,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     
     // Функция для генерации описания
     function generateDescription($prompt): array {
-        $apiKey = 'YOUR_CHAT_API_KEY'; //Заменить
-    
-        $headers = [
-            'Authorization: Bearer ' . $apiKey,
-            'Content-Type: application/json',
-        ];
-    
-        $data = ['prompt' => $prompt];
-    
-        $response = httpRequest('https://api.chat.com/generate', 'POST', $headers, $data);
-    
-        if ($response['body'] === false) {
-            return ['status' => 'error', 'message' => 'Ошибка при генерации описания.'];
-        }
-    
-        $data = json_decode($response['body'], true);
+        $query = $prompt;
+        
+        $data['text'] = require_once __DIR__ . '/gpt.php';
     
         if (isset($data['text'])) {
             return ['status' => 'success', 'text' => $data['text']];
@@ -105,6 +92,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         $biography = isset($_POST['biography']) ? trim($_POST['biography']) : "";
         $generate_image = (isset($_POST['generate_image']) AND $_POST['generate_image']=='true') ? 1 : 0;
         $image_prompt = isset($_POST['image_prompt']) ? trim($_POST['image_prompt']) : "";
+        $generate_desc = (isset($_POST['generate_desc']) AND $_POST['generate_desc']=='true') ? 1 : 0;
+        $desc_prompt = isset($_POST['desc_prompt']) ? trim($_POST['desc_prompt']) : "";
     
         // Обрабатываем изображение
         $imagePath = null;
@@ -127,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     
         // Генерируем описание
-        if (isset($_POST['generate_desc']) && !empty($_POST['desc_prompt'])) {
+        if (isset($_POST['generate_desc']) && (bool)$_POST['generate_desc'] && !empty($_POST['desc_prompt'])) {
             $descriptionResult = generateDescription($_POST['desc_prompt']);
     
             if ($descriptionResult['status'] === 'success') {
@@ -161,7 +150,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         } catch (PDOException $e) {        }
 
         if (!$res) echo json_encode(['status' => 'error', 'message' => 'Ошибка добавления ветерана: ' . $e->getMessage()]);
-        else echo json_encode(['status' => 'success', 'message' => 'Ветеран успешно добавлен! Страница будет опубликована после обработки администратором! Предпросмотр страницы доступен по ссылке', 'path' => '/veteran/'.$new_veteran_id]);
+        else echo json_encode(['status' => 'success', 'message' => 'Ветеран успешно добавлен! Страница будет опубликована после обработки администратором! Предпросмотр страницы доступен по ссылке(кнопка)', 'path' => '/veteran/'.$new_veteran_id]);
     
         $conn = null;
     } else {
@@ -276,6 +265,13 @@ include_once('header.php');
                                         <i class="bi bi-person-plus me-2"></i>Добавить
                                     </button>
                                 </div>
+                                
+                                <div id="loadingSpinner" class="d-none text-center my-3">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Загрузка...</span>
+                                    </div>
+                                    <p class="mt-2">Обработка запроса...</p>
+                                </div>
                             </form>
 
                             <div id="message" class="mt-3 alert d-none"></div>
@@ -297,6 +293,7 @@ include_once('header.php');
                    
                 </div>
                 <div class="modal-footer">
+                    <a id="veteranLink" href="#" class="btn btn-success d-none">Перейти к странице</a>
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Закрыть</button>
                 </div>
             </div>
@@ -317,8 +314,11 @@ include_once('header.php');
             formData.append('generate_image', document.getElementById('generate_image').checked);
             formData.append('image_prompt', document.getElementById('image_prompt').value);
             formData.append('image', document.getElementById('image').files[0]);
+            formData.append('generate_desc', document.getElementById('generate_desc').checked);
+            formData.append('desc_prompt', document.getElementById('desc_prompt').value);
 
-            
+            loadingSpinner.classList.remove('d-none');
+            // submitButton.disabled = true;
 
             fetch(window.location.href, {
                 method: 'POST',
@@ -328,7 +328,8 @@ include_once('header.php');
             .then(data => {
                 messageDiv.textContent = data.message;
                 // window.alert(data.message);
-                showSuccess(data.message);
+                // showSuccess(data.message);
+                showSuccess(data.message, data.path);
                 if (data.status === 'success') {
                     form.reset();
                 }
@@ -336,12 +337,27 @@ include_once('header.php');
             .catch(error => {
                 console.error('Error:', error);
                 messageDiv.textContent = 'Произошла ошибка при добавлении ветерана.';
-            });
+            })
+            .finally(() => {
+                loadingSpinner.classList.add('d-none');
+                submitButton.disabled = false;
+            });;
         }
 
-        function showSuccess(message) {
+        function showSuccess(message, path = null) {
             const successModal = new bootstrap.Modal(document.getElementById('successModal'));
-            document.getElementById('successMessage').textContent = message;
+            const successMessage = document.getElementById('successMessage');
+            const veteranLink = document.getElementById('veteranLink');
+
+            successMessage.textContent = message;
+
+            if (path) {
+                veteranLink.href = path;
+                veteranLink.classList.remove('d-none');
+            } else {
+                veteranLink.classList.add('d-none');
+            }
+
             successModal.show();
         }
 

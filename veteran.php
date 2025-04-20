@@ -37,6 +37,7 @@ $veteran = getVeteranInfo($conn, $veteran_id);
     <section id="veteran-info">
         <?php
         if ($veteran) {
+            if (!$veteran["published"]) echo "<h2>Предпросмотр страницы</h2>";
             echo "<h2>" . htmlspecialchars($veteran["name"]) . "</h2>";
             echo "<p>Годы жизни: " . htmlspecialchars($veteran["birth_year"]) . " - " . htmlspecialchars($veteran["death_year"]) . "</p>";
             echo "<p>" . htmlspecialchars($veteran["biography"]) . "</p>";
