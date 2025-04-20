@@ -2,10 +2,10 @@
 // db.php - Файл для работы с базой данных
 
 // Настройки подключения к БД
-$servername = "localhost";
-$username = "f1116969_user";
-$password = "pass123@";
-$dbname = "f1116969_user";
+$servername = "";
+$username = "";
+$password = "";
+$dbname = "";
 
 // Функция для подключения к БД
 function connectDB() {
