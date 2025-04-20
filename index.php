@@ -1,113 +1,120 @@
+
 <?php
+$title = 'Страницы памяти';
 include_once('header.php');
 ?>
-    <!-- <main>
-        <section class="veteran-info">
-            <img src="veteran.jpg" alt="Ветеран Войны" class="veteran-photo">
-            <div class="text-info">
-                <h2>Иван Иванович Петров</h2>
-                <p>Иван Иванович Петров родился 1 января 1920 года. Он служил в армии во время Второй мировой войны и участвовал в нескольких ключевых сражениях. За свою храбрость и мужество был награжден орденами и медалями. После войны Иван Иванович посвятил свою жизнь воспитанию молодежи и патриотическому воспитанию.</p>
-            </div>
-        </section>
-        <section class="map">
-            <h2>Место жительства</h2>
-            <div id="map" class="yandex-map"></div>
-        </section>
-        
-    </main> -->
-
     <main>
-    <div id="app">
-
-    <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="messageModalLabel">Ваше послание добавлено!</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    {{ modalMessage }}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Скрыть</button>
-                </div>
+    <div class="fullscreen-slider">
+        <div class="swiper mr-5 ml-5 mt-2">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide d-flex justify-content-center mb-5 w-25"><img class="img-photo rounded-3" style="height:240px"src="/img/img1.jpg"></div>
+                <div class="swiper-slide d-flex justify-content-center mb-5 w-25"><img class="img-photo rounded-3" style="height:240px" src="/img/img2.jpg"></div>
+                <div class="swiper-slide d-flex justify-content-center mb-5 w-25"><img class="img-photo rounded-3" style="height:240px" src="/img/img3.jpg"></div>
+                <div class="swiper-slide d-flex justify-content-center mb-5 w-25"><img class="img-photo rounded-3" style="height:240px" src="/img/img4.jpg"></div>
+                <div class="swiper-slide d-flex justify-content-center mb-5 w-25"><img class="img-photo rounded-3" style="height:240px" src="/img/img5.jpg"></div>
+                <!-- <div class="swiper-slide d-flex justify-content-center mb-5 w-25"><img class="img-photo rounded-3" src="/img/img6.jpg"></div>
+                <div class="swiper-slide d-flex justify-content-center mb-5 w-25"><img class="img-photo rounded-3" src="/img/img7.jpg"></div> -->
+                <div class="swiper-slide d-flex justify-content-center mb-5 w-25"><img class="img-photo rounded-3" style="height:240px"  src="/img/img8.jpg"></div>
+              </div>
+              <!-- <div class="swiper-button-prev"></div>
+              <div class="swiper-button-next"></div> -->
+        </div>
+    </div>
+       
+ <!-- контейнер карточек -->
+ <h2 class="losung">Ваш подвиг бессмертен – наша память вечна</h2>
+        <div class="cards-container">
+        <!-- Карточка 1 -->
+        <div class="card">
+        <img src="/img/veteran/avericheva.jpg" class="card-image">
+            <div class="card-overlay">
+                <div class="card-text">Аверичева Софья Петровна<br> Дата рождения: 10 сентября 1914<br>
+                Дата смерти: 10 мая 2015</div>
             </div>
+            <a href="https://example.com/link1" class="card-link" aria-label="Перейти к разделу 1"></a>
+        </div>
+        
+        <!-- Карточка 2 -->
+        <div class="card">
+        <img src="/img/veteran/agibalov.jpg" class="card-image">
+          
+            <div class="card-overlay">
+                <div class="card-text">Агибалов Леонид Дмитриевич <br>Дата рождения: 25 сентября 1920<br>
+                Дата смерти: 7 февраля 1986</div>
+            </div>
+            <a href="https://example.com/link2" class="card-link" aria-label="Перейти к разделу 2"></a>
+        </div>
+        
+        <!-- Карточка 3 -->
+        <div class="card">
+        <img src="/img/veteran/adiyanov.jpg" class="card-image">
+            <div class="card-overlay">
+                <div class="card-text">Адиянов Василий Савельевич <br>Дата рождения: 1916<br>
+                Дата смерти: 19 апреля 1992</div>
+            </div>
+            <a href="https://example.com/link3" class="card-link" aria-label="Перейти к разделу 3"></a>
+        </div>
+        
+        <!-- Карточка 4 -->
+        <div class="card">
+        <img src="/img/veteran/abashin2.jpg" class="card-image">
+            <div class="card-overlay">
+                <div class="card-text">Абашин Николай Борисович <br>Дата рождения: 12 декабря 1922<br>
+Место рождения: в деревня Петелино Ленинского района Тульской области<br>
+Дата смерти: 9 сентября 1989<br>
+Место смерти: г. Львов </div>
+            </div>
+            <a href="https://example.com/link4" class="card-link" aria-label="Перейти к разделу 4"></a>
+        </div>
+        
+        <!-- Карточка 5 -->
+        <div class="card">
+        <img src="/img/veteran/abakumov.jpg" class="card-image">
+            <div class="card-overlay">
+                <div class="card-text">Абакумов Александр Степанович <br>Дата рождения: 19 августа 1918<br>
+Место рождения: Токаревский район Тамбовская область с. Абакумовка<br>
+Дата смерти: 13 марта 2006<br>
+Место смерти: Тамбовская область</div>
+            </div>
+            <a href="https://example.com/link5" class="card-link" aria-label="Перейти к разделу 5"></a>
+        </div>
+        
+        <!-- Карточка 6 -->
+        <div class="card">
+        <img src="/img/veteran/yaroslavceva.jpg" class="card-image">
+            <div class="card-overlay">
+                <div class="card-text">Ярославцева Мария Ивановна<br> Дата рождения: 3 августа 1924<br>
+                Дата смерти: 2 июля 1998</div>
+            </div>
+            <a href="https://example.com/link6" class="card-link" aria-label="Перейти к разделу 6"></a>
         </div>
     </div>
 
-        <section class="search-section">
-            <div class="search-container">
-                <button class="title" @click="toggleSearchForm">
-                    Найти героя
-                    <i :class="['fa-solid', isShowSearchForm ? 'fa-chevron-up' : 'fa-chevron-down']"></i>
-                </button>
-                <div class="search-form" v-if="isShowSearchForm">
-                    <div class="input-group">
-                        <label for="name-search">ФИО</label>
-                        <input 
-                            type="text" 
-                            id="name-search" 
-                            v-model="searchParams.name" 
-                            placeholder="Введите имя героя"
-                            @input="handleSearch"
-                        >
-                        <span class="input-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                            </svg>
-                        </span>
+
+
+    <div id="app">
+        <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="messageModalLabel">Ваше послание добавлено!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    
-                    <div class="input-group">
-                        <label for="year-search">Год рождения</label>
-                        <input 
-                            type="number" 
-                            id="year-search" 
-                            v-model="searchParams.year" 
-                            placeholder="Год рождения"
-                            @input="handleSearch"
-                        >
-                        <span class="input-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                <line x1="16" y1="2" x2="16" y2="6"></line>
-                                <line x1="8" y1="2" x2="8" y2="6"></line>
-                                <line x1="3" y1="10" x2="21" y2="10"></line>
-                            </svg>
-                        </span>
+                    <div class="modal-body">
+                        {{ modalMessage }}
                     </div>
-                    
-                    <div class="input-group">
-                        <label for="location-search">Место призыва</label>
-                        <input 
-                            type="text" 
-                            id="location-search" 
-                            v-model="searchParams.location" 
-                            placeholder="Город или область"
-                            @input="handleSearch"
-                        >
-                        <span class="input-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                <circle cx="12" cy="10" r="3"></circle>
-                            </svg>
-                        </span>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Скрыть</button>
                     </div>
-                    
-                    <button class="search-button" @click="handleSearch">
-                        Найти
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                        </svg>
-                    </button>
                 </div>
             </div>
-        </section>
+        </div>
         
-        <section class="memory-section">
+
+        <?include_once('comment.php');?>
+
+
+        <!-- <section class="memory-section">
             <h2>Память стоит того, чтобы беречь, а благодарность стоит того, чтобы нести </h2>
             <div class="memory-form">
                 <textarea 
@@ -140,39 +147,13 @@ include_once('header.php');
                     <div class="memory-date">{{ memory.date }}</div>
                 </div>
             </div>
-        </section>
-        <div class="candle-container" v-if="showCandle">
-            <div class="candle">
-                <div class="flame">
-                  <div class="shadows"></div>
-                  <div class="top"></div>
-                  <div class="middle"></div>
-                  <div class="bottom"></div>
-            </div>
-            <div class="wick"></div>
-            <div class="wax"></div>
-        </div>
-        </div>
+        </section> -->
+        
     </div>
 
 </main>
 
-    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
     <script>
-        // ymaps.ready(init);
-        // function init() {
-        //     var myMap = new ymaps.Map("map", {
-        //         center: [55.751574, 37.573856], // Координаты для центра карты (Москва)
-        //         zoom: 10
-        //     });
-
-        //     var myPlacemark = new ymaps.Placemark([55.751574, 37.573856], {
-        //         balloonContent: 'Дом Ивана Ивановича Петрова'
-        //     });
-
-        //     myMap.geoObjects.add(myPlacemark);
-        // }
-
         const { createApp } = Vue;
     
         createApp({
@@ -199,6 +180,7 @@ include_once('header.php');
 
                     showCandle: false,
                     isShowSearchForm: false,
+                    isLoading: false,
                 }
             },
             
@@ -235,6 +217,22 @@ include_once('header.php');
                 }
             },
         }).mount('#app');
+
+
+        const swiper = new Swiper('.swiper', {
+            speed: 28000,
+            spaceBetween: 10, 
+            slidesPerView: 'auto', 
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+             loop: true, 
+            autoplay: {
+                delay: 1000, 
+                disableOnInteraction: false,
+            },
+        });
     </script>
 
 <?

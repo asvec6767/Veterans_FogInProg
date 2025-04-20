@@ -8,4 +8,4 @@ RewriteRule ^ - [L]
 
 # Перенаправляем запросы /veteran/123 на veteran.php?id=123
 RewriteRule ^veteran/([0-9]+)$ veteran.php?id=$1 [L]
-RewriteRule ^veteran/$ veteran.php [L]
+RewriteRule ^veteran/$ veteran_list.php [L]

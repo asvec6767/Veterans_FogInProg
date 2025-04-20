@@ -1,142 +1,209 @@
-<? include_once('header.php'); 
+<?php
+$title = 'Добавление ветерана';
+include_once('header.php'); 
+require_once 'db.php';
 
-// Подключение к БД и получение информации о ветеране
-require_once 'db.php';  // Подключаем файл с функциями для работы с БД
-
-$conn = connectDB(); //Подключение к бд
+$conn = connectDB();
 if (!$conn) {
-  die("Ошибка подключения к БД.");  //Завершаем выполнение скрипта, если нет подключения
+  die("Ошибка подключения к БД.");
 }?>
 
 <link rel="stylesheet" href="/css/veteran.css">
+<link rel="stylesheet" href="/css/candle.css">
 <script src="/js/veteran_script.js"></script>
 
-<? if (isset($_GET['id'])){ /**Страница ветерана */
+<? 
+$veteran_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-    // Получаем ID ветерана из GET-параметра
-    $veteran_id = isset($_GET['id']) ? intval($_GET['id']) : 0; // 0 как значение по умолчанию
+if ($veteran_id <= 0) {
+    echo "Некорректный ID ветерана.";
+    $conn = null;
+    return;
+}
 
-    // Проверяем, что ID ветерана существует
-    if ($veteran_id <= 0) {
-        echo "Некорректный ID ветерана.";
-        $conn = null; // Закрываем соединение с базой данных
-        return; // Прерываем выполнение скрипта
-    }
+$veteran = getVeteranInfo($conn, $veteran_id);
 
-    $veteran = getVeteranInfo($conn, $veteran_id);
+if ($veteran) {
+    echo htmlspecialchars($veteran["name"]);
+} else {
+    echo "Информация о ветеране";
+}
+?>
 
-    if ($veteran) {
-        echo htmlspecialchars($veteran["name"]);
-    } else {
-        echo "Информация о ветеране";
-    }
-    ?>
+<title>Информация о ветеране</title>
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=" type="text/javascript"></script>
 
-        <title>Информация о ветеране</title>
-        <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=YOUR_API_KEY" type="text/javascript"></script>
+<main>
+    <section id="veteran-info">
+        <?php
+        if ($veteran) {
+            echo "<h2>" . htmlspecialchars($veteran["name"]) . "</h2>";
+            echo "<p>Годы жизни: " . htmlspecialchars($veteran["birth_year"]) . " - " . htmlspecialchars($veteran["death_year"]) . "</p>";
+            echo "<p>" . htmlspecialchars($veteran["biography"]) . "</p>";
+            echo "<p>Зажженные свечи: <span id='candle-count'>" . htmlspecialchars($veteran["candles"]) . "</span> <button id='light-candle-btn' class='toggle-candle-btn'>Зажечь свечу</button></p>";   
+        } else {
+            echo "Информация о ветеране не найдена.";
+        }
+        ?>
+    </section>
 
-        <main>
-            <section id="veteran-info">
-                <?php
-
-                if ($veteran) {
-                    echo "<h2>" . htmlspecialchars($veteran["name"]) . "</h2>";
-                    echo "<p>Годы жизни: " . htmlspecialchars($veteran["birth_year"]) . " - " . htmlspecialchars($veteran["death_year"]) . "</p>";
-                    echo "<p>" . htmlspecialchars($veteran["biography"]) . "</p>";
-                    echo "<p>Зажженные свечи: <span id='candle-count'>" . htmlspecialchars($veteran["candles"]) . "</span> <button onclick='candleVeteran()'>Зажечь свечу</button></p>";
-
-                } else {
-                    echo "Информация о ветеране не найдена.";
-                }
-                ?>
-            </section>
-
-            <section id="gallery">
-                <h2>Галерея фотографий</h2>
-                <div class="gallery-container">
-                    <?php
-                    $images = getVeteranImages($conn, $veteran_id); //Получение изображений
-
-                    if ($images) {
-                        foreach ($images as $image) {
-                            echo "<img src='/img/veteran/" . htmlspecialchars($image["image_url"]) . "' alt='Фотография'>";
-                        }
-                    } else {
-                        echo "Фотографии не найдены.";
-                    }
-                    ?>
+    <!-- Добавляем контейнер для свечи -->
+    <div class="background-container">
+        <div class="container">
+            <div class="candle-container">
+                <div class="candle">
+                    <div class="candle-stick"></div>
+                    <div class="candle-body"></div>
+                    <div class="candle-flame"></div>
+                    <div class="wax-drips" id="waxDrips"></div>
                 </div>
-            </section>
+            </div>
+        </div>
+    </div>
 
-            <section id="map">
-                <h2>Места, связанные с ветераном</h2>
-                <div id="map-container"></div>
-                <script>
-                    // Передача данных о точках на карте в JavaScript
-                    var mapPoints = <?php
-                        $mapPoints = getMapPoints($conn, $veteran_id);
-                        if ($mapPoints) {
-                            echo json_encode($mapPoints); // Преобразуем в JSON
-                        } else {
-                            echo "[]";  // Пустой массив, если нет точек
-                        }
-                    ?>;
-                </script>
-            </section>
-        </main>
+    <section id="gallery">
+        <h2>Галерея фотографий</h2>
+        <div class="gallery-container">
+            <?php
+            $images = getVeteranImages($conn, $veteran_id);
+            if ($images) {
+                foreach ($images as $image) {
+                    echo "<img src='/img/veteran/" . htmlspecialchars($image["image_url"]) . "' alt='Фотография'>";
+                }
+            } else {
+                echo "Фотографии не найдены.";
+            }
+            ?>
+        </div>
+    </section>
+
+    <section id="map">
+        <h2>Места, связанные с ветераном</h2>
+        <div id="map-container" style="width: 100%; height: 400px;"></div>
+        <script>
+            var mapPoints = <?php
+                $mapPoints = getMapPoints($conn, $veteran_id);
+                if ($mapPoints) {
+                    echo json_encode($mapPoints);
+                } else {
+                    echo "[]";
+                }
+            ?>;
+        </script>
+    </section>
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const candle = document.querySelector('.candle');
+    const backgroundContainer = document.querySelector('.background-container');
+    const waxDrips = document.getElementById('waxDrips');
+    const candleCount = document.getElementById('candle-count');
+    const lightBtn = document.getElementById('light-candle-btn');
+    let isLit = false;
+    let dripInterval;
+
+    function candleVeteran() {
+        const count = parseInt(candleCount.textContent);
         
-    <script>
-        function likeVeteran() {
-            var likeCountElement = document.getElementById('like-count');
-            var likeCount = parseInt(likeCountElement.innerText);
-            likeCount++;
-
-            // Отправка запроса на сервер для обновления данных в БД
-            fetch('like.php', {
+        if (!isLit) {
+            // Light the candle
+            backgroundContainer.style.opacity = '1';
+            candle.classList.add('lit');
+            isLit = true;
+            lightBtn.textContent = 'Погасить свечу';
+            startDrips();
+            
+            // Update candle count
+            candleCount.textContent = count + 1;
+            
+            // Send AJAX request to update count in database
+            fetch('update_candles.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: 'veteran_id=<?php echo $veteran_id; ?>&likes=' + likeCount // Используем ID ветерана из PHP
-            })
-            .then(response => {
-                if (response.ok) {
-                    likeCountElement.innerText = likeCount; // Обновление на странице
-                } else {
-                    console.error('Ошибка при отправке запроса');
-                }
-            })
-            .catch(error => {
-                console.error('Ошибка:', error);
+                body: 'veteran_id=<?php echo $veteran_id; ?>&candles=' + (count + 1)
             });
+        } else {
+            // Extinguish the candle
+            backgroundContainer.style.opacity = '0';
+            candle.classList.remove('lit');
+            isLit = false;
+            lightBtn.textContent = 'Зажечь свечу';
+            stopDrips();
         }
-    </script>
-<?} else { /**Страница списка всех Ветеранов */?>
-    <main>
-        <section id="veteran-list">
-            <ul>
-                <?php
+    }
 
-                $veterans = getAllVeterans($conn);
+    function startDrips() {
+        stopDrips();
+        dripInterval = setInterval(createDrip, 3000);
+        for (let i = 0; i < 3; i++) {
+            setTimeout(createDrip, i * 1000);
+        }
+    }
 
-                if ($veterans) {
-                    foreach ($veterans as $veteran) {
-                        echo "<li><a href='/veteran/" . htmlspecialchars($veteran["id"]) . "'>" . htmlspecialchars($veteran["name"]) . "</a></li>";
-                    }
-                } else {
-                    echo "Ветераны не найдены.";
-                }
+    function stopDrips() {
+        if (dripInterval) {
+            clearInterval(dripInterval);
+        }
+    }
 
-                ?>
-            </ul>
-        </section>
-    </main>
-<?}?>
+    function createDrip() {
+        if (!isLit) return;
+        
+        const drip = document.createElement('div');
+        drip.classList.add('drip');
+        const leftPos = Math.random() * 80 + 10;
+        drip.style.left = `${leftPos}px`;
+        const dripWidth = Math.random() * 5 + 5;
+        drip.style.width = `${dripWidth}px`;
+        waxDrips.appendChild(drip);
+        
+        setTimeout(() => {
+            if (drip.parentNode) {
+                drip.remove();
+            }
+        }, 3000);
+    }
+
+    // Initialize
+    lightBtn.addEventListener('click', candleVeteran);
+    
+    // If there are already candles, light it up
+    if (parseInt(candleCount.textContent) > 0) {
+        candleVeteran();
+    }
+
+    function likeVeteran() {
+        var likeCountElement = document.getElementById('like-count');
+        var likeCount = parseInt(likeCountElement.innerText);
+        likeCount++;
+
+        fetch('like.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'veteran_id=<?php echo $veteran_id; ?>&likes=' + likeCount
+        })
+        .then(response => {
+            if (response.ok) {
+                likeCountElement.innerText = likeCount;
+            } else {
+                console.error('Ошибка при отправке запроса');
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+        });
+    }
+});
+</script>
 
 <?php
 if ($conn) {
-  $conn = null; //Закрываем соединение с БД
+  $conn = null;
 }
+include_once('footer.php'); 
 ?>
-
-<? include_once('footer.php'); ?>
